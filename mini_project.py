@@ -240,7 +240,6 @@ def sub_menu():
         elif order_menu == "0":
             break
 
-
 # main loop
 while True:
     print(""" Ijaz's Coffee shop!
