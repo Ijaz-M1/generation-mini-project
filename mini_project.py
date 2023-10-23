@@ -1,3 +1,21 @@
+try:
+    product_file_list = []
+    products_file = open("products.txt", "r")
+    p_file = products_file.readlines()
+    for products in p_file:
+        product_file_list.append(products.strip())
+except FileNotFoundError as fnfe:
+    print("This file could not be opened: " + str(fnfe))
+
+try:
+    courier_file_list = []
+    couriers_file = open("couriers.txt", "r")
+    c_file = couriers_file.readlines()
+    for couriers in c_file:
+        courier_file_list.append(couriers.strip())
+except FileNotFoundError as fnfe:
+    print("This file could not be opened: " + str(fnfe))
+
 # create product list
 product_list = ["Black tea", "Americano", "Strawberry smoothie", "Avacado sandwich"]
 
@@ -35,6 +53,9 @@ order_dict = [
     },
               ]
 
+#############################################################################
+# PRODUCT MENU
+#############################################################################
 def product_menu():
     while True:
         # print menu
@@ -93,7 +114,9 @@ def product_menu():
         else:
             print("invalid number, please try again.")
 
-
+##########################################################################
+# COURIER MENU
+##########################################################################
 def courier_menu():
     while True:
         print(""" Courier menu!
@@ -152,7 +175,9 @@ def courier_menu():
         else:
             print("invalid number, please try again.")
 
-
+#########################################################################
+# ORDER MENU
+#########################################################################
 def sub_menu():
     while True:
         # print menu
@@ -240,7 +265,9 @@ def sub_menu():
         elif order_menu == "0":
             break
 
-# main loop
+########################################################
+# MAIN LOOP
+########################################################
 while True:
     print(""" Ijaz's Coffee shop!
         1. Product menu
@@ -256,4 +283,11 @@ while True:
     elif menu == "3":
         sub_menu()
     elif menu == "0":
+        with open("products.txt", "w") as products_file:
+            for products in product_list:
+                products_file.write(products + "\n")
+
+        with open("couriers.txt", "w") as couriers_file:
+            for couriers in courier_list:
+                couriers_file.write(couriers + "\n")
         break
