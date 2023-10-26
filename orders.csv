@@ -1,0 +1,9 @@
+customer_name,customer_address,customer_phone,items,courier,status
+
+John,"Unit 2, 12 Main Street, LONDON, WH1 2ER",0789887334,,,preparing
+
+Sarah,"Apt 3B, 45 Elm Avenue, BIRMINGHAM, EX1 5YM",0798265177,,,shipped
+
+Michael,"Suite 5, 28 Oak Lane, MANCHESTER, AR1 8PK",0795863269,,,delivered
+
+Emily,"Flat 7, 9 Maple Street, LEEDS, QM9 6WS",0797572267,,,ordered
