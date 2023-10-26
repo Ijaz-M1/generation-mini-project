@@ -1,26 +1,69 @@
-try:
-    product_file_list = []
-    products_file = open("products.txt", "r")
-    p_file = products_file.readlines()
-    for products in p_file:
-        product_file_list.append(products.strip())
-except FileNotFoundError as fnfe:
-    print("This file could not be opened: " + str(fnfe))
+import csv
 
-try:
-    courier_file_list = []
-    couriers_file = open("couriers.txt", "r")
-    c_file = couriers_file.readlines()
-    for couriers in c_file:
-        courier_file_list.append(couriers.strip())
-except FileNotFoundError as fnfe:
-    print("This file could not be opened: " + str(fnfe))
+product_file_list = []
+products_file = open("products.csv", "r")
+p_file = csv.reader(products_file, delimiter=",")
+for products in p_file:
+    product_file_list.append(products)
+
+courier_file_list = []
+couriers_file = open("couriers.csv", "r")
+c_file = csv.reader(couriers_file, delimiter=",")
+for couriers in c_file:
+    courier_file_list.append(couriers)
+
+order_file_list = []
+orders_file = open("orders.csv", "r")
+o_file = csv.reader(orders_file, delimiter=",")
+for orders in o_file:
+    order_file_list.append(orders)
 
 # create product list
-product_list = ["Black tea", "Americano", "Strawberry smoothie", "Avacado sandwich"]
+product_list = [
+    {
+    "name": "Black tea",
+    "price": "1.50"
+    },
+
+    {
+    "name": "Americano",
+    "price": "1.80"
+    },
+
+    {
+    "name": "Strawberry smoothie",
+    "price": "1.20"
+    },
+
+    {
+    "name": "Avacado sandwich",
+    "price": "0.90"
+    },
+]
 
 # create courier list
-courier_list = ["George", "Noah", "Sarah", "Henry"]
+courier_list = [
+    {
+    "name": "George",
+    "phone": "0798764325"
+    },
+
+    {
+    "name": "Noah",
+    "phone": "0798564356"
+    },
+
+    {
+    "name": "Sarah",
+    "phone": "0792346759"
+    },
+
+    {
+    "name": "Henry",
+    "phone": "0795637850"
+    },
+
+]
 
 # create order dictionary
 order_dict = [
@@ -51,7 +94,7 @@ order_dict = [
     "customer_phone": "0797572267",
     "status": "ordered"
     },
-              ]
+]
 
 #############################################################################
 # PRODUCT MENU
@@ -73,7 +116,10 @@ def product_menu():
 
         # allows user to add a product and then prints new list
         elif menu == "2":
-            product_list.append(input("Add a new product that you would like: "))
+            product_name_input = input("Add a new product name: ")
+            product_price_input = input("Add a price for the product: ")
+            new_product_dict = {"name": product_name_input, "price": product_price_input}
+            product_list.append(new_product_dict)
             print(product_list)
 
         # update product name
@@ -84,26 +130,31 @@ def product_menu():
                 print("Index: ", index, "Product: ", products)
 
             # allow user to choose product by index
-            user_input = input("Enter the index value of your chosen product: ")
-            user_index = int(user_input)
-            if user_index in range(len(product_list)):
-                selected_index_product = product_list[user_index]
+            user_input = int(input("Enter the index value of your chosen product: "))
+            print("")
+            if user_input in range(len(product_list)):
+                selected_index_product = product_list[user_input]
                 print("The product you chose is: ", selected_index_product)
             else:
                     print("This Index is invalid.")
+                    break
 
-            updated_product_name = input("What would you like to update the product name to be: ")
-            product_list[user_index] = updated_product_name
-            print(product_list)
+            for key in selected_index_product:
+                user_updated_product_property = input(f"Enter the updated value for {key} or press Enter to not update: ")
+                if user_updated_product_property:
+                    selected_index_product[key] = user_updated_product_property
+                    print("Product property updated")
+                    print(selected_index_product)
+                else:
+                    continue
 
         # delete a product
         elif menu == "4":
             print(product_list)
             for index, products in enumerate(product_list):
                 print("Index: ", index, "Product: ", products)
-            user_input = input("Enter the index value of your chosen product: ")
-            user_index = int(user_input)
-            del(product_list[user_index])
+            user_input = int(input("Enter the index value of your chosen product: "))
+            del(product_list[user_input])
             print(product_list)
 
         # allows user to exit
@@ -133,7 +184,10 @@ def courier_menu():
 
         # allows user to add a courier and then prints new list
         elif menu == "2":
-            courier_list.append(input("Add a new courier that you would like: "))
+            courier_name_input = input("Add a new courier name: ")
+            courier_phone_input = input("Add a phone number for the courier: ")
+            new_courier_dict = {"name": courier_name_input, "phone": courier_phone_input}
+            courier_list.append(new_courier_dict)
             print(courier_list)
             print("")
 
@@ -145,26 +199,32 @@ def courier_menu():
                 print("Index: ", index, "Courier: ", couriers)
 
             # allow user to choose courier by index
-            user_courier_input = input("Enter the index value of your chosen courier: ")
-            user_courier_index = int(user_courier_input)
-            if user_courier_index in range(len(courier_list)):
-                selected_index_courier = courier_list[user_courier_index]
+            user_courier_input = int(input("Enter the index value of your chosen courier: "))
+            print("")
+            if user_courier_input in range(len(courier_list)):
+                selected_index_courier = courier_list[user_courier_input]
                 print("The courier you chose is: ", selected_index_courier)
             else:
                     print("This Index is invalid.")
+                    break
 
-            updated_courier_name = input("What would you like to update the courier name to be: ")
-            courier_list[user_courier_index] = updated_courier_name
-            print(courier_list)
+            for key in selected_index_courier:
+                user_updated_courier_property = input(f"Enter the updated value for {key} or press Enter to not update: ")
+                if user_updated_courier_property:
+                    selected_index_courier[key] = user_updated_courier_property
+                    print("Courier property updated")
+                    print(selected_index_courier)
+                else:
+                    continue
 
         # delete a courier
         elif menu == "4":
             print(courier_list)
+            # display list of couriers with index values
             for index, couriers in enumerate(courier_list):
                 print("Index: ", index, "Courier: ", couriers)
-            user_courier_input = input("Enter the index value of your chosen courier: ")
-            user_courier_index = int(user_courier_input)
-            del(courier_list[user_courier_index])
+            user_courier_input = int(input("Enter the index value of your chosen courier: "))
+            del(courier_list[user_courier_input])
             print(courier_list)
 
         # allows user to exit
@@ -196,13 +256,43 @@ def sub_menu():
 
         # allows user to add another dictionary and sets the status to PREPARING
         elif order_menu == "2":
-            user_order_dict = {
-                "customer_name": input("Please enter your name: "),
-                "customer_address": input("Please enter your full address: "),
-                "customer_phone": input("Please enter your phone number: "),
+
+            customer_name = input("Please enter your name: ")
+            customer_address = input("Please enter your full address: ")
+            customer_phone = input("Please enter your phone number: ")
+
+
+            # print product indexes
+            for index, products in enumerate(product_list):
+                print("Index: ", index, "Product: ", products)
+
+            # input for comma-seperated list of product index values
+            product_indexes = input("Enter product index numbers of the product that you chose. Split them using commas: ")
+
+            # print courier indexes
+            for index, couriers in enumerate(courier_list):
+                print("Index: ", index, "Courier: ", couriers)
+
+            # allow user to choose courier by index
+            user_courier_input = int(input("Enter the index value of your chosen courier: "))
+            print("")
+            if user_courier_input in range(len(courier_list)):
+                courier_name = courier_list[user_courier_input]["name"]
+                print("The courier you chose is: ", courier_name)
+            else:
+                    print("This Index is invalid.")
+                    break
+
+            new_order = {
+                "customer_name": customer_name,
+                "customer_address": customer_address,
+                "customer_phone": customer_phone,
+                "items": product_indexes,
+                "courier": user_courier_input,
                 "status": "preparing"
             }
-            order_dict.append(user_order_dict)
+
+            order_dict.append(new_order)
             print(order_dict)
 
         # prints order list with it's index value
@@ -283,11 +373,22 @@ while True:
     elif menu == "3":
         sub_menu()
     elif menu == "0":
-        with open("products.txt", "w") as products_file:
-            for products in product_list:
-                products_file.write(products + "\n")
 
-        with open("couriers.txt", "w") as couriers_file:
-            for couriers in courier_list:
-                couriers_file.write(couriers + "\n")
+        with open("products.csv", "w") as products_file:
+            fieldnames = ["name", "price"]
+            writer = csv.DictWriter(products_file, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(product_list)
+
+        with open("couriers.csv", "w") as couriers_file:
+            fieldnames = ["name", "phone"]
+            writer = csv.DictWriter(couriers_file, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(courier_list)
+
+        with open("orders.csv", "w") as orders_file:
+            fieldnames = ["customer_name", "customer_address", "customer_phone", "items", "courier", "status"]
+            writer = csv.DictWriter(orders_file, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(order_dict)
         break
