@@ -1,5 +1,7 @@
+# import csv module
 import csv
 
+# load content from .csv files
 product_file_list = []
 products_file = open("products.csv", "r")
 p_file = csv.reader(products_file, delimiter=",")
@@ -120,6 +122,7 @@ def product_menu():
             product_price_input = input("Add a price for the product: ")
             new_product_dict = {"name": product_name_input, "price": product_price_input}
             product_list.append(new_product_dict)
+            # displays the list again
             print(product_list)
 
         # update product name
@@ -139,6 +142,7 @@ def product_menu():
                     print("This Index is invalid.")
                     break
 
+            # allows user to update a value from the dictionary or skip it
             for key in selected_index_product:
                 user_updated_product_property = input(f"Enter the updated value for {key} or press Enter to not update: ")
                 if user_updated_product_property:
@@ -182,7 +186,7 @@ def courier_menu():
         if menu == "1":
             print(courier_list)
 
-        # allows user to add a courier and then prints new list
+        # allows user to add a courier and their phone number and then prints new list
         elif menu == "2":
             courier_name_input = input("Add a new courier name: ")
             courier_phone_input = input("Add a phone number for the courier: ")
@@ -208,6 +212,7 @@ def courier_menu():
                     print("This Index is invalid.")
                     break
 
+            # allows user to update a value from the dictionary or skip it
             for key in selected_index_courier:
                 user_updated_courier_property = input(f"Enter the updated value for {key} or press Enter to not update: ")
                 if user_updated_courier_property:
@@ -254,7 +259,7 @@ def sub_menu():
         if order_menu == "1":
             print(order_dict)
 
-        # allows user to add another dictionary and sets the status to PREPARING
+        # allows user to add another dictionary and starts by inputting name, address and phone number
         elif order_menu == "2":
 
             customer_name = input("Please enter your name: ")
@@ -283,6 +288,8 @@ def sub_menu():
                     print("This Index is invalid.")
                     break
 
+            # creates a new order dictionary with the addition of items and courier
+            # it also sets the default status to 'preparing'
             new_order = {
                 "customer_name": customer_name,
                 "customer_address": customer_address,
@@ -292,6 +299,7 @@ def sub_menu():
                 "status": "preparing"
             }
 
+            # combines the dictionary created above to the list of dictionaries created at the beginning
             order_dict.append(new_order)
             print(order_dict)
 
@@ -323,6 +331,8 @@ def sub_menu():
         elif order_menu == "4":
             for index, order in enumerate(order_dict):
                 print("Index: ", index, "Order: ", order)
+
+            # allows user to choose the order by index value
             user_order_input = int(input("Enter the index value of your chosen order: "))
             if user_order_input in range(len(order_dict)):
                 selected_order_index = order_dict[user_order_input]
@@ -331,7 +341,7 @@ def sub_menu():
                     print("This Index is invalid.")
                     break
 
-            # allows user to input the property they want to update
+            # allows user to update a value from the dictionary or skip it
             for key in selected_order_index:
                 user_updated_order_property = input(f"Enter the updated value for {key} or press Enter to not update: ")
                 if user_updated_order_property:
@@ -365,6 +375,7 @@ while True:
         3. Order menu
         0. Exit""")
 
+    # allows user to choose which menu they want to go into
     menu = input("Choose your option: ")
     if menu == "1":
         product_menu()
@@ -374,6 +385,7 @@ while True:
         sub_menu()
     elif menu == "0":
 
+        # saves any updates or changes to the .csv files and finally ends the program
         with open("products.csv", "w") as products_file:
             fieldnames = ["name", "price"]
             writer = csv.DictWriter(products_file, fieldnames=fieldnames)
