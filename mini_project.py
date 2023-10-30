@@ -1,6 +1,13 @@
 # import csv module
 import csv
 
+# create function to display dictionaries with their respected index value
+def produce_pretty_list(input_list):
+    output = ""
+    for index, details in enumerate(input_list):
+        output += f"Index:  {index} Details:  {details}\n"
+    return output
+
 # load content from .csv files
 product_file_list = []
 products_file = open("products.csv", "r")
@@ -129,8 +136,7 @@ def product_menu():
         elif menu == "3":
 
             # print product indexes
-            for index, products in enumerate(product_list):
-                print("Index: ", index, "Product: ", products)
+            print(produce_pretty_list(product_list))
 
             # allow user to choose product by index
             user_input = int(input("Enter the index value of your chosen product: "))
@@ -155,8 +161,7 @@ def product_menu():
         # delete a product
         elif menu == "4":
             print(product_list)
-            for index, products in enumerate(product_list):
-                print("Index: ", index, "Product: ", products)
+            print(produce_pretty_list(product_list))
             user_input = int(input("Enter the index value of your chosen product: "))
             del(product_list[user_input])
             print(product_list)
@@ -199,8 +204,7 @@ def courier_menu():
         elif menu == "3":
 
             # print courier indexes
-            for index, couriers in enumerate(courier_list):
-                print("Index: ", index, "Courier: ", couriers)
+            print(produce_pretty_list(courier_list))
 
             # allow user to choose courier by index
             user_courier_input = int(input("Enter the index value of your chosen courier: "))
@@ -226,8 +230,7 @@ def courier_menu():
         elif menu == "4":
             print(courier_list)
             # display list of couriers with index values
-            for index, couriers in enumerate(courier_list):
-                print("Index: ", index, "Courier: ", couriers)
+            print(produce_pretty_list(courier_list))
             user_courier_input = int(input("Enter the index value of your chosen courier: "))
             del(courier_list[user_courier_input])
             print(courier_list)
@@ -270,15 +273,13 @@ def sub_menu():
 
 
             # print product indexes
-            for index, products in enumerate(product_list):
-                print("Index: ", index, "Product: ", products)
+            print(produce_pretty_list(order_dict))
 
             # input for comma-seperated list of product index values
             product_indexes = input("Enter product index numbers of the product that you chose. Split them using commas: ")
 
             # print courier indexes
-            for index, couriers in enumerate(courier_list):
-                print("Index: ", index, "Courier: ", couriers)
+            print(produce_pretty_list(courier_list))
 
             # allow user to choose courier by index
             user_courier_input = int(input("Enter the index value of your chosen courier: "))
@@ -309,8 +310,7 @@ def sub_menu():
 
         # prints order list with it's index value
         elif order_menu == "3":
-            for index, order in enumerate(order_dict):
-                print("Index: ", index, "Order: ", order)
+            print(produce_pretty_list(order_dict))
 
             user_order_input = int(input("Choose the index value of your chosen order: "))
             if user_order_input in range(len(order_dict)):
@@ -323,8 +323,7 @@ def sub_menu():
             # prints order status with it's index value
             print("")
             order_status_list = ['preparing', 'shipped', 'delivered', 'ordered']
-            for index, order_status in enumerate(order_status_list):
-                print(index,": ", order_status)
+            print(produce_pretty_list(order_status_list))
 
             # allows user to choose order status
             user_order_status_input = int(input("Enter the index value of your chosen order status: "))
@@ -335,8 +334,7 @@ def sub_menu():
 
         # prints order list with index value
         elif order_menu == "4":
-            for index, order in enumerate(order_dict):
-                print("Index: ", index, "Order: ", order)
+            print(produce_pretty_list(order_dict))
 
             # allows user to choose the order by index value
             user_order_input = int(input("Enter the index value of your chosen order: "))
@@ -363,8 +361,7 @@ def sub_menu():
                 print("")
                 print(order)
             print("")
-            for index, order in enumerate(order_dict):
-                print("Index: ", index, "Order: ", order)
+            print(produce_pretty_list(order_dict))
             print("")
             user_order_input = int(input("Enter the index value of the order you want to delete: "))
             del(order_dict[user_order_input])
