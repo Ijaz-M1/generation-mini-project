@@ -121,16 +121,18 @@ def product_menu():
         # allow user to input value
         menu = input("Choose your option: ")
         if menu == "1":
-            print(product_list)
+            for product in product_list:
+                print(product)
 
         # allows user to add a product and then prints new list
         elif menu == "2":
             product_name_input = input("Add a new product name: ")
-            product_price_input = input("Add a price for the product: ")
+            product_price_input = float(input("Add a price for the product: "))
             new_product_dict = {"name": product_name_input, "price": product_price_input}
             product_list.append(new_product_dict)
             # displays the list again
-            print(product_list)
+            for product in product_list:
+                print(product)
 
         # update product name
         elif menu == "3":
@@ -160,11 +162,14 @@ def product_menu():
 
         # delete a product
         elif menu == "4":
-            print(product_list)
+            for product in product_list:
+                print(product)
+            print("")
             print(produce_pretty_list(product_list))
             user_input = int(input("Enter the index value of your chosen product: "))
             del(product_list[user_input])
-            print(product_list)
+            for product in product_list:
+                print(product)
 
         # allows user to exit
         elif menu == "0":
@@ -189,15 +194,18 @@ def courier_menu():
         # allow user to input value
         menu = input("Choose your option: ")
         if menu == "1":
-            print(courier_list)
+            for courier in courier_list:
+                print(courier)
 
         # allows user to add a courier and their phone number and then prints new list
         elif menu == "2":
             courier_name_input = input("Add a new courier name: ")
-            courier_phone_input = input("Add a phone number for the courier: ")
+            courier_phone_input = int(input("Add a phone number for the courier: "))
             new_courier_dict = {"name": courier_name_input, "phone": courier_phone_input}
             courier_list.append(new_courier_dict)
-            print(courier_list)
+            print("")
+            for courier in courier_list:
+                print(courier)
             print("")
 
         # update courier name
@@ -228,12 +236,16 @@ def courier_menu():
 
         # delete a courier
         elif menu == "4":
-            print(courier_list)
+            for courier in courier_list:
+                print(courier)
+            print("")
             # display list of couriers with index values
             print(produce_pretty_list(courier_list))
             user_courier_input = int(input("Enter the index value of your chosen courier: "))
             del(courier_list[user_courier_input])
-            print(courier_list)
+            print("")
+            for courier in courier_list:
+                print(courier)
 
         # allows user to exit
         elif menu == "0":
@@ -269,11 +281,11 @@ def sub_menu():
 
             customer_name = input("Please enter your name: ")
             customer_address = input("Please enter your full address: ")
-            customer_phone = input("Please enter your phone number: ")
+            customer_phone = int(input("Please enter your phone number: "))
 
 
             # print product indexes
-            print(produce_pretty_list(order_dict))
+            print(produce_pretty_list(product_list))
 
             # input for comma-seperated list of product index values
             product_indexes = input("Enter product index numbers of the product that you chose. Split them using commas: ")
