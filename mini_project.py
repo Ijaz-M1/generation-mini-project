@@ -257,7 +257,9 @@ def sub_menu():
         order_menu = input("Choose your option: ")
         # print order dictionary
         if order_menu == "1":
-            print(order_dict)
+            for order in order_dict:
+                print("")
+                print(order)
 
         # allows user to add another dictionary and starts by inputting name, address and phone number
         elif order_menu == "2":
@@ -301,7 +303,9 @@ def sub_menu():
 
             # combines the dictionary created above to the list of dictionaries created at the beginning
             order_dict.append(new_order)
-            print(order_dict)
+            for order in order_dict:
+                print("")
+                print(order)
 
         # prints order list with it's index value
         elif order_menu == "3":
@@ -325,7 +329,9 @@ def sub_menu():
             # allows user to choose order status
             user_order_status_input = int(input("Enter the index value of your chosen order status: "))
             order_dict[user_order_input]["status"] = order_status_list[user_order_status_input]
-            print(order_dict)
+            for order in order_dict:
+                print("")
+                print(order)
 
         # prints order list with index value
         elif order_menu == "4":
@@ -353,14 +359,18 @@ def sub_menu():
 
         # allows user to delete an order
         elif order_menu == "5":
-            print(order_dict)
+            for order in order_dict:
+                print("")
+                print(order)
             print("")
             for index, order in enumerate(order_dict):
                 print("Index: ", index, "Order: ", order)
             print("")
             user_order_input = int(input("Enter the index value of the order you want to delete: "))
             del(order_dict[user_order_input])
-            print(order_dict)
+            for order in order_dict:
+                print("")
+                print(order)
 
         elif order_menu == "0":
             break
