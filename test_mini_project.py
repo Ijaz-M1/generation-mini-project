@@ -1,4 +1,3 @@
-#import pytest
 from mini_project import produce_pretty_list
 
 def test_produce_pretty_list_with_products():
