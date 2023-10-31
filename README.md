@@ -8,7 +8,17 @@ how to run the app
 - Otherwise in the terminal type 'py mini_project.py' on windows or 'python3 mini_project.py' on mac
 
 how to run any unit tests
-- Have not made any unit tests yet
+- First install pytest
+- When this is done, type in the terminal "py -m pytest test_mini_project.py"
+- This should then run 2 tests and successfully pass them
+
+what do the unit tests do
+- We start by looking at a function in our main file called produce_pretty_list.
+- This function will return the list of dictionaries of products, couriers or orders (depending on which one is called) and print their index value with them.
+- The first unit test takes in an expected code of the products list with its respective index value. We then have an actual value which also prints out the product list with indexes but through the function produce_pretty_list.
+- We test equal actual to expected and the test should pass indicating that they produce the same thing.
+- The second unit test does not take in any values for the list and is empty.
+- From this, we assume that it would not print anything and the test should pass.
 
 
 Project Reflections
