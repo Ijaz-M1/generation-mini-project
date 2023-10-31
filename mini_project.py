@@ -21,11 +21,11 @@ c_file = csv.DictReader(couriers_file)
 for couriers in c_file:
     courier_list.append(couriers)
 
-order_dict = []
+order_list = []
 orders_file = open("orders.csv", "r")
 o_file = csv.DictReader(orders_file)
 for orders in o_file:
-    order_dict.append(orders)
+    order_list.append(orders)
 
 #############################################################################
 # PRODUCT MENU
@@ -49,7 +49,11 @@ def product_menu():
         # allows user to add a product and then prints new list
         elif menu == "2":
             product_name_input = input("Add a new product name: ")
-            product_price_input = float(input("Add a price for the product: "))
+            try:
+                product_price_input = float(input("Add a price for the product: "))
+            except ValueError:
+                print("The input you entered is incorrect. Try again.")
+                break
             new_product_dict = {"name": product_name_input, "price": product_price_input}
             product_list.append(new_product_dict)
             # displays the list again
@@ -122,7 +126,11 @@ def courier_menu():
         # allows user to add a courier and their phone number and then prints new list
         elif menu == "2":
             courier_name_input = input("Add a new courier name: ")
-            courier_phone_input = int(input("Add a phone number for the courier: "))
+            try:
+                courier_phone_input = int(input("Add a phone number for the courier: "))
+            except ValueError:
+                print("Please only input numbers")
+                break
             new_courier_dict = {"name": courier_name_input, "phone": courier_phone_input}
             courier_list.append(new_courier_dict)
             print("")
@@ -194,7 +202,7 @@ def sub_menu():
         order_menu = input("Choose your option: ")
         # print order dictionary
         if order_menu == "1":
-            for order in order_dict:
+            for order in order_list:
                 print("")
                 print(order)
 
@@ -203,7 +211,12 @@ def sub_menu():
 
             customer_name = input("Please enter your name: ")
             customer_address = input("Please enter your full address: ")
-            customer_phone = int(input("Please enter your phone number: "))
+            try:
+                customer_phone = int(input("Please enter your phone number: "))
+            except ValueError:
+                print("Please only input numbers")
+                print("")
+                break
 
 
             # print product indexes
@@ -237,18 +250,18 @@ def sub_menu():
             }
 
             # combines the dictionary created above to the list of dictionaries created at the beginning
-            order_dict.append(new_order)
-            for order in order_dict:
+            order_list.append(new_order)
+            for order in order_list:
                 print("")
                 print(order)
 
         # prints order list with it's index value
         elif order_menu == "3":
-            print(produce_pretty_list(order_dict))
+            print(produce_pretty_list(order_list))
 
             user_order_input = int(input("Choose the index value of your chosen order: "))
-            if user_order_input in range(len(order_dict)):
-                selected_order_index = order_dict[user_order_input]
+            if user_order_input in range(len(order_list)):
+                selected_order_index = order_list[user_order_input]
                 print("The order you chose is: ", selected_order_index)
             else:
                 print("This Index is invalid.")
@@ -261,19 +274,19 @@ def sub_menu():
 
             # allows user to choose order status
             user_order_status_input = int(input("Enter the index value of your chosen order status: "))
-            order_dict[user_order_input]["status"] = order_status_list[user_order_status_input]
-            for order in order_dict:
+            order_list[user_order_input]["status"] = order_status_list[user_order_status_input]
+            for order in order_list:
                 print("")
                 print(order)
 
         # prints order list with index value
         elif order_menu == "4":
-            print(produce_pretty_list(order_dict))
+            print(produce_pretty_list(order_list))
 
             # allows user to choose the order by index value
             user_order_input = int(input("Enter the index value of your chosen order: "))
-            if user_order_input in range(len(order_dict)):
-                selected_order_index = order_dict[user_order_input]
+            if user_order_input in range(len(order_list)):
+                selected_order_index = order_list[user_order_input]
                 print("The order you chose is: ", selected_order_index)
             else:
                     print("This Index is invalid.")
@@ -291,15 +304,15 @@ def sub_menu():
 
         # allows user to delete an order
         elif order_menu == "5":
-            for order in order_dict:
+            for order in order_list:
                 print("")
                 print(order)
             print("")
-            print(produce_pretty_list(order_dict))
+            print(produce_pretty_list(order_list))
             print("")
             user_order_input = int(input("Enter the index value of the order you want to delete: "))
-            del(order_dict[user_order_input])
-            for order in order_dict:
+            del(order_list[user_order_input])
+            for order in order_list:
                 print("")
                 print(order)
 
@@ -344,7 +357,7 @@ def main():
                 fieldnames = ["customer_name", "customer_address", "customer_phone", "items", "courier", "status"]
                 writer = csv.DictWriter(orders_file, fieldnames=fieldnames)
                 writer.writeheader()
-                writer.writerows(order_dict)
+                writer.writerows(order_list)
             break
 
 if __name__ == "__main__":
