@@ -5,105 +5,27 @@ import csv
 def produce_pretty_list(input_list):
     output = ""
     for index, details in enumerate(input_list):
-        output += f"Index:  {index} Details:  {details}\n"
+        output += f"Index: {index} Details: {details}\n"
     return output
 
 # load content from .csv files
-product_file_list = []
+product_list = []
 products_file = open("products.csv", "r")
-p_file = csv.reader(products_file, delimiter=",")
+p_file = csv.DictReader(products_file)
 for products in p_file:
-    product_file_list.append(products)
+    product_list.append(products)
 
-courier_file_list = []
+courier_list = []
 couriers_file = open("couriers.csv", "r")
-c_file = csv.reader(couriers_file, delimiter=",")
+c_file = csv.DictReader(couriers_file)
 for couriers in c_file:
-    courier_file_list.append(couriers)
+    courier_list.append(couriers)
 
-order_file_list = []
+order_dict = []
 orders_file = open("orders.csv", "r")
-o_file = csv.reader(orders_file, delimiter=",")
+o_file = csv.DictReader(orders_file)
 for orders in o_file:
-    order_file_list.append(orders)
-
-# create product list
-product_list = [
-    {
-    "name": "Black tea",
-    "price": "1.50"
-    },
-
-    {
-    "name": "Americano",
-    "price": "1.80"
-    },
-
-    {
-    "name": "Strawberry smoothie",
-    "price": "1.20"
-    },
-
-    {
-    "name": "Avacado sandwich",
-    "price": "0.90"
-    },
-]
-
-# create courier list
-courier_list = [
-    {
-    "name": "George",
-    "phone": "0798764325"
-    },
-
-    {
-    "name": "Noah",
-    "phone": "0798564356"
-    },
-
-    {
-    "name": "Sarah",
-    "phone": "0792346759"
-    },
-
-    {
-    "name": "Henry",
-    "phone": "0795637850"
-    },
-
-]
-
-# create order dictionary
-order_dict = [
-    {
-    "customer_name": "John",
-    "customer_address": "Unit 2, 12 Main Street, LONDON, WH1 2ER",
-    "customer_phone": "0789887334",
-    "status": "preparing"
-    },
-
-    {
-    "customer_name": "Sarah",
-    "customer_address": "Apt 3B, 45 Elm Avenue, BIRMINGHAM, EX1 5YM",
-    "customer_phone": "0798265177",
-    "status": "shipped"
-    },
-
-    {
-    "customer_name": "Michael",
-    "customer_address": "Suite 5, 28 Oak Lane, MANCHESTER, AR1 8PK",
-    "customer_phone": "0795863269",
-    "status": "delivered"
-    },
-
-    {
-    "customer_name": "Emily",
-    "customer_address": "Flat 7, 9 Maple Street, LEEDS, QM9 6WS",
-    "customer_phone": "0797572267",
-    "status": "ordered"
-    },
-]
+    order_dict.append(orders)
 
 #############################################################################
 # PRODUCT MENU
@@ -387,39 +309,43 @@ def sub_menu():
 ########################################################
 # MAIN LOOP
 ########################################################
-while True:
-    print(""" Ijaz's Coffee shop!
-        1. Product menu
-        2. Courier menu
-        3. Order menu
-        0. Exit""")
+def main():
+    while True:
+        print(""" Ijaz's Coffee shop!
+            1. Product menu
+            2. Courier menu
+            3. Order menu
+            0. Exit""")
 
-    # allows user to choose which menu they want to go into
-    menu = input("Choose your option: ")
-    if menu == "1":
-        product_menu()
-    elif menu == "2":
-        courier_menu()
-    elif menu == "3":
-        sub_menu()
-    elif menu == "0":
+        # allows user to choose which menu they want to go into
+        menu = input("Choose your option: ")
+        if menu == "1":
+            product_menu()
+        elif menu == "2":
+            courier_menu()
+        elif menu == "3":
+            sub_menu()
+        elif menu == "0":
 
-        # saves any updates or changes to the .csv files and finally ends the program
-        with open("products.csv", "w") as products_file:
-            fieldnames = ["name", "price"]
-            writer = csv.DictWriter(products_file, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(product_list)
+            # saves any updates or changes to the .csv files and finally ends the program
+            with open("products.csv", "w") as products_file:
+                fieldnames = ["name", "price"]
+                writer = csv.DictWriter(products_file, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(product_list)
 
-        with open("couriers.csv", "w") as couriers_file:
-            fieldnames = ["name", "phone"]
-            writer = csv.DictWriter(couriers_file, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(courier_list)
+            with open("couriers.csv", "w") as couriers_file:
+                fieldnames = ["name", "phone"]
+                writer = csv.DictWriter(couriers_file, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(courier_list)
 
-        with open("orders.csv", "w") as orders_file:
-            fieldnames = ["customer_name", "customer_address", "customer_phone", "items", "courier", "status"]
-            writer = csv.DictWriter(orders_file, fieldnames=fieldnames)
-            writer.writeheader()
-            writer.writerows(order_dict)
-        break
+            with open("orders.csv", "w") as orders_file:
+                fieldnames = ["customer_name", "customer_address", "customer_phone", "items", "courier", "status"]
+                writer = csv.DictWriter(orders_file, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(order_dict)
+            break
+
+if __name__ == "__main__":
+    main()
