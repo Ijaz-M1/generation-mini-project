@@ -56,6 +56,7 @@ def product_menu():
                 break
             new_product_dict = {"name": product_name_input, "price": product_price_input}
             product_list.append(new_product_dict)
+            print("")
             # displays the list again
             for product in product_list:
                 print(product)
