@@ -1,7 +1,11 @@
 # generation-mini-project
 Project Background
+- A cafe shop with options to select between products, couriers and orders. Foe each of these, there are options to add, update or delete a dictionary.
 
 Client requirements
+- Be able to maintain a collection of products, couriers and orders.
+- Be able to update the status of an order i.e. preparing, shipped, delivered
+- When exiting the app, all data should be persisted and not lost.
 
 how to run the app
 - Use the play/run button in VS code
